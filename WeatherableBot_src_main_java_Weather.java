@@ -8,9 +8,8 @@ import java.util.Scanner;
 
 class Weather {
 
-    //21bc167ace402d13246dfe70e594189d
     static String getWeather(String message, Model model, String lg) throws IOException {
-        URL url = new URL("https://api.openweathermap.org/data/2.5/forecast?q=" + message + "&units=metric&" + "lang=" + lg + "&appid=21bc167ace402d13246dfe70e594189d");
+        URL url = new URL("https://api.openweathermap.org/data/2.5/forecast?q=" + message + "&units=metric&" + "lang=" + lg + "&appid=TOKEN");
 
         Scanner in = new Scanner((InputStream) url.getContent());
         String result = "";
