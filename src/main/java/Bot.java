@@ -12,11 +12,13 @@ import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Bot extends TelegramLongPollingBot {
 
-    private String lang;
+    private Map<Long, String> hashMap = new HashMap<Long, String>();
 
     public static void main(String[] args) {
         ApiContextInitializer.init();
@@ -51,18 +53,18 @@ public class Bot extends TelegramLongPollingBot {
                     sendMsg(message, "Choose your language");
                     break;
                 case "\uD83C\uDDF7\uD83C\uDDFA":
-                    lang = "ru";
+                    hashMap.put(message.getChatId(), "ru");
                     sendMsg(message, "Пожалуйста, введите свой город");
                     break;
                 case "\uD83C\uDDEC\uD83C\uDDE7":
-                    lang = "en";
+                    hashMap.put(message.getChatId(), "en");
                     sendMsg(message, "Please, enter your city");
                     break;
                 default:
                     try {
-                        sendMsg(message, Weather.getWeather(message.getText(), model, lang));
+                        sendMsg(message, Weather.getWeather(message.getText(), model, hashMap.get(message.getChatId())));
                     } catch (IOException e) {
-                        if (lang.equals("ru")) {
+                        if (hashMap.get(message.getChatId()).equals("ru")) {
                             sendMsg(message, "Такой город не найден");
                         } else {
                             sendMsg(message, "City not found");
