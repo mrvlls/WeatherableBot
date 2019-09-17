@@ -17,12 +17,21 @@ import java.util.List;
 import java.util.Map;
 
 public class Bot extends TelegramLongPollingBot {
+    
+    private String apiKey;
 
     private Map<Long, String> hashMap = new HashMap<Long, String>();
 
     public static void main(String[] args) {
         ApiContextInitializer.init();
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
+        
+        String apiKeyEnvVarName = "WEATHERBOT_API_KEY";
+        apiKey = System.getenv(apiKeyEnvVarName);
+        if (apiKey != null) {
+            throw new Exeception(String.Format("Envrionmental variable \"%s\" is not defined.", apiKeyEnvVarName));
+        }
+        
         try {
             telegramBotsApi.registerBot(new Bot());
         } catch (TelegramApiRequestException e) {
@@ -97,6 +106,6 @@ public class Bot extends TelegramLongPollingBot {
     }
 
     public String getBotToken() {
-        return "TOKEN";
+        return apiKey;
     }
 }
