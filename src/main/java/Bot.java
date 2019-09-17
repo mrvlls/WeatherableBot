@@ -27,8 +27,8 @@ public class Bot extends TelegramLongPollingBot {
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
 
         String apiKeyEnvVarName = "WEATHERBOT_API_KEY";
-        apiKey = System.getenv(apiKeyEnvVarName);
-        if (apiKey != null) {
+        String apiKey = System.getenv(apiKeyEnvVarName);
+        if (apiKey == null) {
             throw new Exeception(String.format("Envrionmental variable \"%s\" is not defined.", apiKeyEnvVarName));
         }
 
