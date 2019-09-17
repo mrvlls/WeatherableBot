@@ -33,7 +33,7 @@ public class Bot extends TelegramLongPollingBot {
         }
 
         try {
-            telegramBotsApi.registerBot(new Bot());
+            telegramBotsApi.registerBot(new Bot(apiKey));
         } catch (TelegramApiRequestException e) {
             e.printStackTrace();
         }
@@ -51,6 +51,10 @@ public class Bot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
+    }
+    
+    Bot(String apiKey) {
+        this.apiKey = apiKey;
     }
 
     public void onUpdateReceived(Update update) {
